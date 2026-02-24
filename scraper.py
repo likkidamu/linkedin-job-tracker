@@ -92,7 +92,7 @@ class LinkedInJobScraper:
             return []
 
     def scrape_all_companies(self, companies: list[dict],
-                             rate_limit_seconds: float = 2.0) -> list[dict]:
+                             rate_limit_seconds: float = 5.0) -> list[dict]:
         """
         Scrape jobs for all companies with rate limiting.
 

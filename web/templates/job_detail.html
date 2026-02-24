@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}{{ job.title }} at {{ job.company }} - Job Tracker{% endblock %}
+{% block content %}
+<div class="detail-header">
+    <a href="/jobs" class="back-link">&larr; Back to Jobs</a>
+    <h1>{{ job.title }}</h1>
+    <div class="detail-meta">
+        <span class="badge badge-cat">{{ job.company_category }}</span>
+        <strong>{{ job.company }}</strong>
+        {% if job.location %}<span class="meta-sep">|</span> {{ job.location }}{% endif %}
+        {% if job.posted_date %}<span class="meta-sep">|</span> Posted: {{ job.posted_date }}{% endif %}
+        {% if job.url %}
+        <span class="meta-sep">|</span>
+        <a href="{{ job.url }}" target="_blank" class="link-btn">View on LinkedIn</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="detail-grid">
+    <!-- Left: Job Description -->
+    <div class="card">
+        <h2>Job Description</h2>
+        {% if job.description %}
+        <div class="jd-content">{{ job.description }}</div>
+        {% else %}
+        <p class="empty">No job description available. The API may not have returned the full text for this job.</p>
+        {% endif %}
+    </div>
+
+    <!-- Right: Resume Status -->
+    <div>
+        <div class="card">
+            <h2>Resume Status</h2>
+            {% if resume %}
+            <div class="resume-status">
+                <span class="badge badge-success">Generated</span>
+                <span class="resume-date">{{ resume.created_at[:19] }}</span>
+            </div>
+            <a href="/resumes/download/{{ resume.id }}" class="btn" style="margin-top: 1rem;">Download PDF</a>
+            {% else %}
+            <div class="resume-status">
+                <span class="badge badge-pending">Pending</span>
+                <p style="margin-top: 0.5rem; color: #666;">Resume will be generated on the next scraper run.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if tailored_resume %}
+        <div class="card">
+            <h2>Tailored Resume Preview</h2>
+            <div class="resume-preview">
+                <h3>{{ tailored_resume.name }}</h3>
+                {% if tailored_resume.summary %}
+                <div class="preview-section">
+                    <h4>Summary</h4>
+                    <p>{{ tailored_resume.summary }}</p>
+                </div>
+                {% endif %}
+                {% if tailored_resume.skills %}
+                <div class="preview-section">
+                    <h4>Skills</h4>
+                    {% for category, skills in tailored_resume.skills.items() %}
+                    <p><strong>{{ category }}:</strong> {{ skills | join(', ') }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if tailored_resume.experience %}
+                <div class="preview-section">
+                    <h4>Experience</h4>
+                    {% for exp in tailored_resume.experience %}
+                    <div class="exp-item">
+                        <strong>{{ exp.title }}</strong> at {{ exp.company }}
+                        <span class="exp-date">{{ exp.dates }}</span>
+                        <ul>
+                            {% for bullet in exp.bullets %}
+                            <li>{{ bullet }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

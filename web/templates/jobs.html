@@ -42,7 +42,7 @@
                 <td class="nowrap">{{ job.posted_date or job.scraped_at[:10] }}</td>
                 <td><strong>{{ job.company }}</strong></td>
                 <td><span class="badge badge-cat">{{ job.company_category }}</span></td>
-                <td>{{ job.title }}</td>
+                <td><a href="/jobs/{{ job.id }}" class="job-title-link">{{ job.title }}</a></td>
                 <td>{{ job.location }}</td>
                 <td>
                     {% if job.url %}

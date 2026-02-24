@@ -36,10 +36,22 @@ class JobDatabase:
                     company TEXT NOT NULL,
                     title TEXT NOT NULL,
                     pdf_path TEXT NOT NULL,
+                    tailored_json TEXT,
                     created_at TEXT NOT NULL,
                     FOREIGN KEY (job_id) REFERENCES jobs(job_id)
                 );
 
+                -- Add tailored_json column if missing (migration for existing DBs)
+                CREATE TABLE IF NOT EXISTS _migration_check (id INTEGER);
+                DROP TABLE IF EXISTS _migration_check;
+            """)
+            # Migration: add tailored_json column if it doesn't exist
+            try:
+                conn.execute("SELECT tailored_json FROM resumes LIMIT 0")
+            except sqlite3.OperationalError:
+                conn.execute("ALTER TABLE resumes ADD COLUMN tailored_json TEXT")
+
+            conn.executescript("""
                 CREATE TABLE IF NOT EXISTS scrape_log (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     started_at TEXT NOT NULL,
@@ -84,16 +96,17 @@ class JobDatabase:
             """).fetchall()
         return [dict(row) for row in rows]
 
-    def mark_resume_generated(self, job_id: str, pdf_path: str, company: str, title: str):
+    def mark_resume_generated(self, job_id: str, pdf_path: str, company: str, title: str,
+                              tailored_json: str = None):
         with self._connect() as conn:
             conn.execute(
                 "UPDATE jobs SET resume_generated = 1 WHERE job_id = ?",
                 (job_id,)
             )
             conn.execute("""
-                INSERT INTO resumes (job_id, company, title, pdf_path, created_at)
-                VALUES (?, ?, ?, ?, ?)
-            """, (job_id, company, title, pdf_path, datetime.utcnow().isoformat()))
+                INSERT INTO resumes (job_id, company, title, pdf_path, tailored_json, created_at)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (job_id, company, title, pdf_path, tailored_json, datetime.utcnow().isoformat()))
 
     def start_scrape_log(self) -> int:
         with self._connect() as conn:

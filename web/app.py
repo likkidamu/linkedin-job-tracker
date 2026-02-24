@@ -1,4 +1,5 @@
 import os
+import json
 import sqlite3
 from flask import Flask, render_template, send_file, request, jsonify
 
@@ -59,6 +60,39 @@ def jobs_list():
     db.close()
     return render_template("jobs.html", jobs=jobs, companies=companies, categories=categories,
                            selected_company=company, selected_category=category, search_query=search)
+
+
+@app.route("/jobs/<int:job_id>")
+def job_detail(job_id):
+    db = get_db()
+    job = db.execute("SELECT * FROM jobs WHERE id = ?", (job_id,)).fetchone()
+    if not job:
+        db.close()
+        return "Job not found", 404
+
+    resume = db.execute("""
+        SELECT r.*, j.title as job_title
+        FROM resumes r
+        LEFT JOIN jobs j ON r.job_id = j.job_id
+        WHERE r.job_id = ?
+        ORDER BY r.created_at DESC LIMIT 1
+    """, (job["job_id"],)).fetchone()
+
+    # Parse tailored_json if it exists
+    tailored_resume = None
+    if resume:
+        try:
+            cols = [desc[0] for desc in db.execute("PRAGMA table_info(resumes)").fetchall()]
+            col_names = [c[1] for c in db.execute("PRAGMA table_info(resumes)").fetchall()]
+            if "tailored_json" in col_names:
+                raw = db.execute("SELECT tailored_json FROM resumes WHERE id = ?", (resume["id"],)).fetchone()
+                if raw and raw[0]:
+                    tailored_resume = json.loads(raw[0])
+        except Exception:
+            pass
+
+    db.close()
+    return render_template("job_detail.html", job=job, resume=resume, tailored_resume=tailored_resume)
 
 
 @app.route("/resumes")

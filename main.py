@@ -1,3 +1,4 @@
+import json
 import logging
 import sys
 from datetime import datetime
@@ -81,7 +82,8 @@ def run_pipeline():
                     job_id=job["job_id"],
                 )
                 db.mark_resume_generated(
-                    job["job_id"], pdf_path, job["company"], job["title"]
+                    job["job_id"], pdf_path, job["company"], job["title"],
+                    tailored_json=json.dumps(tailored_resume)
                 )
                 total_resumes += 1
 

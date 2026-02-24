@@ -1,54 +1,126 @@
 {
-    "name": "Your Full Name",
-    "email": "your.email@example.com",
-    "phone": "+1-555-123-4567",
-    "linkedin": "https://linkedin.com/in/yourprofile",
-    "github": "https://github.com/yourprofile",
-    "location": "City, State",
-    "summary": "Experienced software engineer with X years of experience in building scalable applications. Proficient in Python, Java, cloud technologies, and distributed systems.",
+    "name": "Damodhar Likki",
+    "email": "dattadamodhar8@gmail.com",
+    "phone": "+1 7043879366",
+    "linkedin": "https://linkedin.com/in/damodharlikki",
+    "portfolio": "https://damodharlikki.com",
+    "location": "Birmingham, AL",
+    "summary": "Backend systems engineer with 4+ years of experience building production-grade cloud infrastructure and ML-integrated services in regulated environments. Specialized in designing deterministic data transformation pipelines, distributed processing systems, and low-latency backend architectures that convert unstructured and model-generated outputs into validated, structured workflows. Strong experience operating scalable systems on AWS.",
     "skills": {
-        "languages": ["Python", "Java", "JavaScript", "SQL"],
-        "frameworks": ["Spring Boot", "Django", "React", "FastAPI"],
-        "databases": ["PostgreSQL", "MongoDB", "Redis", "DynamoDB"],
-        "cloud": ["AWS", "Docker", "Kubernetes", "Terraform"],
-        "tools": ["Git", "CI/CD", "Jenkins", "Kafka"]
+        "ai_and_ml": ["AI Engineering", "LLM Integration", "Prompt Engineering", "NLP", "MLOps Concepts"],
+        "languages": ["Python", "Java (11+)", "Node.js", "TypeScript"],
+        "frameworks": ["Spring Boot", "React", "Angular"],
+        "databases": ["SQL", "PostgreSQL", "MongoDB"],
+        "messaging": ["Kafka", "RabbitMQ"],
+        "cloud_and_devops": ["AWS", "Docker", "Kubernetes", "Terraform", "CI/CD", "GitHub Actions", "ArgoCD"],
+        "architecture": ["REST APIs", "gRPC", "OAuth2", "JWT", "System Design", "Distributed Systems"]
     },
     "experience": [
         {
-            "title": "Senior Software Engineer",
-            "company": "Current Company",
-            "location": "City, State",
-            "start_date": "Jan 2022",
+            "title": "Senior Full Stack Engineer / AI Engineer",
+            "company": "Linq",
+            "location": "Remote",
+            "start_date": "Feb 2025",
             "end_date": "Present",
-            "bullets": [
-                "Built and maintained microservices handling 10M+ requests/day using Python and AWS",
-                "Led migration of monolithic application to event-driven architecture using Kafka",
-                "Mentored 3 junior engineers and conducted code reviews for a team of 8"
+            "projects": [
+                {
+                    "name": "AI-Driven User Intelligence Platform",
+                    "bullets": [
+                        "Built a production AI risk-scoring system integrating OpenAI APIs with behavioral analytics and device-level signals to detect and classify spam or fraudulent users.",
+                        "Designed structured prompt orchestration and response validation workflows with confidence scoring to ensure AI outputs were auditable and safe for automated enforcement.",
+                        "Developed high-throughput Java 17 (Spring Boot) services to deliver real-time risk decisions to internal systems.",
+                        "Engineered event-driven inference workers in Node.js to asynchronously process model outputs and update enforcement pipelines.",
+                        "Implemented traceability and logging layers to support explainability and post-decision review of AI-generated classifications."
+                    ]
+                },
+                {
+                    "name": "Cloud-Native Operations & Modernization Platform",
+                    "bullets": [
+                        "Refactored legacy Ruby on Rails workflows into containerized microservices to improve modularity and independent deployment cycles.",
+                        "Designed role-based access control (RBAC) and secure token-based API authentication for internal tooling.",
+                        "Provisioned AWS infrastructure using Terraform (ECS, IAM, S3, CloudWatch), reducing deployment time by 60% through infrastructure-as-code.",
+                        "Implemented CI/CD pipelines with GitHub Actions and ArgoCD to enable automated container builds and controlled production releases.",
+                        "Designed backend service orchestration layers to manage distributed inference workflows, ensuring idempotent processing, retry safety, and downstream data integrity."
+                    ]
+                }
             ]
         },
         {
-            "title": "Software Engineer",
-            "company": "Previous Company",
-            "location": "City, State",
-            "start_date": "Jun 2019",
-            "end_date": "Dec 2021",
-            "bullets": [
-                "Developed REST APIs serving 50+ endpoints used by 100K+ users",
-                "Implemented CI/CD pipelines reducing deployment time by 60%",
-                "Designed database schemas and optimized queries reducing latency by 40%"
+            "title": "Full Stack Engineer",
+            "company": "Discover Financial Services",
+            "location": "Remote",
+            "start_date": "Apr 2024",
+            "end_date": "Feb 2025",
+            "projects": [
+                {
+                    "name": "Credit Account Management & Interest Calculation Portal",
+                    "bullets": [
+                        "Built a full-stack credit account portal using React (TypeScript) and Java (Spring Boot) to display balances, accrued interest, payment history, and projected payoff amounts.",
+                        "Implemented backend financial calculation logic for daily interest accrual, penalty fees, and balance forecasting.",
+                        "Designed secure REST APIs with OAuth2 and JWT authentication to protect sensitive account data.",
+                        "Optimized PostgreSQL queries and introduced caching to improve API response time for high-volume account reporting.",
+                        "Deployed containerized services using Docker and Kubernetes, enabling scalable production releases."
+                    ]
+                },
+                {
+                    "name": "Real-Time Transaction Monitoring & Risk Insights Dashboard",
+                    "bullets": [
+                        "Developed event-driven backend services using Spring Boot and Kafka to process and analyze real-time transaction data.",
+                        "Built interactive dashboards in React to visualize transaction trends, flagged activities, and risk indicators.",
+                        "Designed REST APIs to expose filtered transaction summaries and risk metrics to frontend applications.",
+                        "Implemented role-based access control (RBAC) to ensure secure access to fraud and risk investigation tools.",
+                        "Improved deployment velocity by integrating CI/CD pipelines with GitHub Actions, enabling safe and frequent releases."
+                    ]
+                }
             ]
+        },
+        {
+            "title": "Full Stack Engineer",
+            "company": "Broadridge Financial Solutions",
+            "location": "Hyderabad, India",
+            "start_date": "May 2019",
+            "end_date": "Dec 2022",
+            "projects": [
+                {
+                    "name": "Investment Reporting & Client Data Portal",
+                    "bullets": [
+                        "Developed a large-scale client reporting portal using Angular, TypeScript, and NgRx, enabling financial advisors to access portfolio performance, transaction history, and compliance documents.",
+                        "Built backend services deployed on AWS (EC2, RDS, S3, CloudFront) to aggregate and serve high-volume financial data with strict latency and availability requirements.",
+                        "Implemented Redis caching and Elasticsearch indexing to improve report generation and search response times by up to 50%.",
+                        "Designed secure authentication and access control workflows aligned with SOC2 compliance, including encrypted data transmission (TLS) and role-based authorization.",
+                        "Established automated test coverage using Jasmine, Karma, Cypress, and Selenium, improving release confidence for customer-facing systems.",
+                        "Designed and deployed real-time data pipelines using Apache Flink and Airflow, processing millions of events daily. Integrated ML models via TensorFlow and AWS SageMaker to enable predictive analytics and user behavior insights.",
+                        "Built full-stack dashboards in Angular to visualize near real-time market activity and user engagement metrics.",
+                        "Architected distributed data transformation pipelines to convert high-volume market event streams into validated reporting datasets consumed by downstream compliance systems."
+                    ]
+                }
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "name": "AI Fitness & Nutrition Companion",
+            "type": "AI Engineering Project",
+            "date": "August 2025",
+            "description": "Built a cloud-native AI-powered fitness and nutrition platform using ASP.NET Core and SQL Server, integrating the OpenAI (ChatGPT) API to generate personalized workout plans, diet recommendations, and progress insights. Designed secure RESTful APIs, implemented event-driven workflows using AWS SQS, containerized services with Docker, and deployed on AWS. Focused on prompt engineering, response validation, and safe AI output handling. Wrote unit tests using xUnit and Moq to ensure reliability and maintainability."
+        },
+        {
+            "name": "AI-Powered Resume Analyzer",
+            "type": "Applied NLP & LLM Project",
+            "date": "July 2024",
+            "description": "Developed an AI-powered resume analysis platform using Python, Next.js, and React to improve ATS compatibility. Applied NLP techniques to extract structured information and leveraged GPT APIs to generate optimization recommendations, improving resume quality scores by approximately 40%. Designed data processing pipelines, implemented model evaluation logic, and built user-facing dashboards to visualize insights and recommendations."
         }
     ],
     "education": [
         {
-            "degree": "Bachelor of Science in Computer Science",
-            "school": "University Name",
-            "year": "2019",
+            "degree": "Master of Science (M.S.), Information Systems",
+            "school": "University of Memphis",
             "gpa": "3.8/4.0"
+        },
+        {
+            "degree": "Bachelor of Technology (B.Tech.), Computer Science",
+            "school": "CVR College of Engineering",
+            "gpa": "3.2/4.0"
         }
-    ],
-    "certifications": [
-        "AWS Solutions Architect - Associate",
-        "Certified Kubernetes Administrator (CKA)"
     ]
 }

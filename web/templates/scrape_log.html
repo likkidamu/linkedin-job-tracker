@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Scrape Log - Job Tracker{% endblock %}
+{% block content %}
+<h1>Scrape History</h1>
+
+<div class="card">
+    {% if logs %}
+    <table>
+        <thead>
+            <tr>
+                <th>Started</th>
+                <th>Completed</th>
+                <th>Companies</th>
+                <th>Jobs Found</th>
+                <th>New Jobs</th>
+                <th>Resumes</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+            <tr>
+                <td class="nowrap">{{ log.started_at[:19] }}</td>
+                <td class="nowrap">{{ log.completed_at[:19] if log.completed_at else '-' }}</td>
+                <td>{{ log.companies_scraped }}</td>
+                <td>{{ log.jobs_found }}</td>
+                <td>{{ log.new_jobs }}</td>
+                <td>{{ log.resumes_generated }}</td>
+                <td>
+                    {% if log.status == 'completed' %}
+                    <span class="badge badge-success">{{ log.status }}</span>
+                    {% elif log.status == 'running' %}
+                    <span class="badge badge-pending">{{ log.status }}</span>
+                    {% else %}
+                    <span class="badge badge-error">{{ log.status }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No scrape runs yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

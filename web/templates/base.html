@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Job Tracker{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">LinkedIn Job Tracker</div>
+        <div class="nav-links">
+            <a href="/" class="{% if request.path == '/' %}active{% endif %}">Dashboard</a>
+            <a href="/jobs" class="{% if request.path == '/jobs' %}active{% endif %}">Jobs</a>
+            <a href="/resumes" class="{% if request.path == '/resumes' %}active{% endif %}">Resumes</a>
+            <a href="/scrape-log" class="{% if request.path == '/scrape-log' %}active{% endif %}">Scrape Log</a>
+        </div>
+    </nav>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

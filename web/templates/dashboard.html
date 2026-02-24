@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Job Tracker{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-number">{{ stats.total_jobs }}</div>
+        <div class="stat-label">Total Jobs</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ stats.unique_companies }}</div>
+        <div class="stat-label">Companies</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ stats.total_resumes }}</div>
+        <div class="stat-label">Resumes Generated</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ stats.total_scrapes }}</div>
+        <div class="stat-label">Scrape Runs</div>
+    </div>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h2>Jobs by Category</h2>
+        <table>
+            <thead>
+                <tr><th>Category</th><th>Jobs</th></tr>
+            </thead>
+            <tbody>
+                {% for cat in categories %}
+                <tr>
+                    <td><a href="/jobs?category={{ cat.company_category }}">{{ cat.company_category }}</a></td>
+                    <td>{{ cat.cnt }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Recent Jobs</h2>
+        <table>
+            <thead>
+                <tr><th>Company</th><th>Title</th><th>Resume</th></tr>
+            </thead>
+            <tbody>
+                {% for job in recent_jobs %}
+                <tr>
+                    <td>{{ job.company }}</td>
+                    <td>
+                        {% if job.url %}
+                        <a href="{{ job.url }}" target="_blank">{{ job.title }}</a>
+                        {% else %}
+                        {{ job.title }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if job.resume_generated %}
+                        <span class="badge badge-success">Done</span>
+                        {% else %}
+                        <span class="badge badge-pending">Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

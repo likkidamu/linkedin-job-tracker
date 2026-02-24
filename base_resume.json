@@ -1,0 +1,54 @@
+{
+    "name": "Your Full Name",
+    "email": "your.email@example.com",
+    "phone": "+1-555-123-4567",
+    "linkedin": "https://linkedin.com/in/yourprofile",
+    "github": "https://github.com/yourprofile",
+    "location": "City, State",
+    "summary": "Experienced software engineer with X years of experience in building scalable applications. Proficient in Python, Java, cloud technologies, and distributed systems.",
+    "skills": {
+        "languages": ["Python", "Java", "JavaScript", "SQL"],
+        "frameworks": ["Spring Boot", "Django", "React", "FastAPI"],
+        "databases": ["PostgreSQL", "MongoDB", "Redis", "DynamoDB"],
+        "cloud": ["AWS", "Docker", "Kubernetes", "Terraform"],
+        "tools": ["Git", "CI/CD", "Jenkins", "Kafka"]
+    },
+    "experience": [
+        {
+            "title": "Senior Software Engineer",
+            "company": "Current Company",
+            "location": "City, State",
+            "start_date": "Jan 2022",
+            "end_date": "Present",
+            "bullets": [
+                "Built and maintained microservices handling 10M+ requests/day using Python and AWS",
+                "Led migration of monolithic application to event-driven architecture using Kafka",
+                "Mentored 3 junior engineers and conducted code reviews for a team of 8"
+            ]
+        },
+        {
+            "title": "Software Engineer",
+            "company": "Previous Company",
+            "location": "City, State",
+            "start_date": "Jun 2019",
+            "end_date": "Dec 2021",
+            "bullets": [
+                "Developed REST APIs serving 50+ endpoints used by 100K+ users",
+                "Implemented CI/CD pipelines reducing deployment time by 60%",
+                "Designed database schemas and optimized queries reducing latency by 40%"
+            ]
+        }
+    ],
+    "education": [
+        {
+            "degree": "Bachelor of Science in Computer Science",
+            "school": "University Name",
+            "year": "2019",
+            "gpa": "3.8/4.0"
+        }
+    ],
+    "certifications": [
+        "AWS Solutions Architect - Associate",
+        "Certified Kubernetes Administrator (CKA)"
+    ]
+}

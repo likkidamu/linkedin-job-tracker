@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Jobs - Job Tracker{% endblock %}
+{% block content %}
+<h1>Scraped Jobs ({{ jobs|length }})</h1>
+
+<div class="filters">
+    <form method="get" class="filter-form">
+        <input type="text" name="search" placeholder="Search jobs..." value="{{ search_query }}" class="input">
+        <select name="company" class="input">
+            <option value="">All Companies</option>
+            {% for c in companies %}
+            <option value="{{ c.company }}" {% if c.company == selected_company %}selected{% endif %}>{{ c.company }}</option>
+            {% endfor %}
+        </select>
+        <select name="category" class="input">
+            <option value="">All Categories</option>
+            {% for cat in categories %}
+            <option value="{{ cat.company_category }}" {% if cat.company_category == selected_category %}selected{% endif %}>{{ cat.company_category }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn">Filter</button>
+        <a href="/jobs" class="btn btn-secondary">Clear</a>
+    </form>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Company</th>
+                <th>Category</th>
+                <th>Title</th>
+                <th>Location</th>
+                <th>LinkedIn</th>
+                <th>Resume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in jobs %}
+            <tr>
+                <td class="nowrap">{{ job.posted_date or job.scraped_at[:10] }}</td>
+                <td><strong>{{ job.company }}</strong></td>
+                <td><span class="badge badge-cat">{{ job.company_category }}</span></td>
+                <td>{{ job.title }}</td>
+                <td>{{ job.location }}</td>
+                <td>
+                    {% if job.url %}
+                    <a href="{{ job.url }}" target="_blank" class="link-btn">View</a>
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                <td>
+                    {% if job.resume_generated %}
+                    <span class="badge badge-success">Generated</span>
+                    {% else %}
+                    <span class="badge badge-pending">Pending</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

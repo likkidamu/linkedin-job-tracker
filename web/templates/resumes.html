@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Resumes - Job Tracker{% endblock %}
+{% block content %}
+<h1>Generated Resumes ({{ resumes|length }})</h1>
+
+<div class="card">
+    {% if resumes %}
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Company</th>
+                <th>Job Title</th>
+                <th>Job Link</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in resumes %}
+            <tr>
+                <td class="nowrap">{{ r.created_at[:10] }}</td>
+                <td><strong>{{ r.company }}</strong></td>
+                <td>{{ r.title }}</td>
+                <td>
+                    {% if r.job_url %}
+                    <a href="{{ r.job_url }}" target="_blank" class="link-btn">LinkedIn</a>
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/resumes/download/{{ r.id }}" class="btn btn-small">Download PDF</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No resumes generated yet. The scraper runs every hour and generates resumes for new jobs.</p>
+    {% endif %}
+</div>
+{% endblock %}

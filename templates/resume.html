@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    @page {
+        size: letter;
+        margin: 0.5in 0.6in;
+    }
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 10pt;
+        line-height: 1.4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        text-align: center;
+        border-bottom: 2px solid #2c3e50;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+    }
+    .header h1 {
+        margin: 0;
+        font-size: 20pt;
+        color: #2c3e50;
+        letter-spacing: 1px;
+    }
+    .contact {
+        font-size: 9pt;
+        color: #555;
+        margin-top: 4px;
+    }
+    .contact a {
+        color: #2c3e50;
+        text-decoration: none;
+    }
+    .contact span {
+        margin: 0 6px;
+    }
+    .section {
+        margin-bottom: 10px;
+    }
+    .section-title {
+        font-size: 11pt;
+        font-weight: bold;
+        color: #2c3e50;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid #bdc3c7;
+        padding-bottom: 2px;
+        margin-bottom: 6px;
+    }
+    .summary {
+        font-size: 9.5pt;
+        color: #444;
+    }
+    .job {
+        margin-bottom: 8px;
+    }
+    .job-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+    .job-title {
+        font-weight: bold;
+        font-size: 10.5pt;
+    }
+    .job-date {
+        font-size: 9pt;
+        color: #666;
+        white-space: nowrap;
+    }
+    .job-company {
+        font-style: italic;
+        color: #555;
+        font-size: 9.5pt;
+    }
+    ul {
+        margin: 3px 0;
+        padding-left: 18px;
+    }
+    li {
+        margin-bottom: 2px;
+        font-size: 9.5pt;
+    }
+    .skills-grid {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 2px 10px;
+        font-size: 9.5pt;
+    }
+    .skill-category {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+    .education-entry {
+        display: flex;
+        justify-content: space-between;
+    }
+    .certs {
+        font-size: 9.5pt;
+    }
+    .target-info {
+        font-size: 8pt;
+        color: #999;
+        text-align: right;
+        margin-top: 10px;
+        border-top: 1px solid #eee;
+        padding-top: 4px;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>{{ resume.name }}</h1>
+    <div class="contact">
+        {{ resume.email }}
+        <span>|</span>
+        {{ resume.phone }}
+        <span>|</span>
+        {{ resume.location }}
+        {% if resume.linkedin %}
+        <span>|</span>
+        <a href="{{ resume.linkedin }}">LinkedIn</a>
+        {% endif %}
+        {% if resume.github %}
+        <span>|</span>
+        <a href="{{ resume.github }}">GitHub</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Summary</div>
+    <div class="summary">{{ resume.summary }}</div>
+</div>
+
+<div class="section">
+    <div class="section-title">Skills</div>
+    <div class="skills-grid">
+        {% for category, skills in resume.skills.items() %}
+        <div class="skill-category">{{ category | replace("_", " ") | title }}:</div>
+        <div>{{ skills | join(", ") }}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">Experience</div>
+    {% for exp in resume.experience %}
+    <div class="job">
+        <div class="job-header">
+            <span class="job-title">{{ exp.title }}</span>
+            <span class="job-date">{{ exp.start_date }} – {{ exp.end_date }}</span>
+        </div>
+        <div class="job-company">{{ exp.company }} — {{ exp.location }}</div>
+        <ul>
+            {% for bullet in exp.bullets %}
+            <li>{{ bullet }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="section">
+    <div class="section-title">Education</div>
+    {% for edu in resume.education %}
+    <div class="education-entry">
+        <div>
+            <strong>{{ edu.degree }}</strong> — {{ edu.school }}
+            {% if edu.gpa %} (GPA: {{ edu.gpa }}){% endif %}
+        </div>
+        <div class="job-date">{{ edu.year }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if resume.certifications %}
+<div class="section">
+    <div class="section-title">Certifications</div>
+    <div class="certs">{{ resume.certifications | join("  •  ") }}</div>
+</div>
+{% endif %}
+
+<div class="target-info">
+    Tailored for: {{ job_title }} at {{ company }}
+</div>
+
+</body>
+</html>

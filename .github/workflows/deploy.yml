@@ -68,24 +68,43 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Deploy to GCP instance
+        env:
+          DEPLOY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          DEPLOY_DIR=/opt/linkedin-job-tracker
+
           gcloud compute ssh instance-20260223-210400 \
             --zone=us-central1-a \
             --ssh-flag="-o StrictHostKeyChecking=no" \
             --command="
-              cd ~/linkedin-job-tracker &&
+              # Create deploy directory if needed
+              sudo mkdir -p ${DEPLOY_DIR}/data ${DEPLOY_DIR}/output &&
+              sudo chmod -R 777 ${DEPLOY_DIR} &&
+              cd ${DEPLOY_DIR} &&
+
+              # Copy .env from user home if exists and not already here
+              [ ! -f .env ] && [ -f /home/damodhardattareddylikki/linkedin-job-tracker/.env ] && cp /home/damodhardattareddylikki/linkedin-job-tracker/.env . ;
+
+              # Copy base_resume.json if exists and not already here
+              [ ! -f base_resume.json ] && [ -f /home/damodhardattareddylikki/linkedin-job-tracker/base_resume.json ] && cp /home/damodhardattareddylikki/linkedin-job-tracker/base_resume.json . ;
+
+              # Copy existing data if exists and not already here
+              [ ! -f data/jobs.db ] && [ -f /home/damodhardattareddylikki/linkedin-job-tracker/data/jobs.db ] && cp /home/damodhardattareddylikki/linkedin-job-tracker/data/jobs.db data/ ;
 
               # Pull latest docker-compose from GitHub
               curl -sL https://raw.githubusercontent.com/${{ github.repository }}/main/docker-compose.prod.yml -o docker-compose.prod.yml &&
 
               # Login to GitHub Container Registry
-              echo ${{ secrets.GITHUB_TOKEN }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin &&
+              echo ${DEPLOY_TOKEN} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin &&
 
               # Pull latest images
               sudo docker compose -f docker-compose.prod.yml pull &&
 
-              # Restart with new images
-              sudo docker compose -f docker-compose.prod.yml down &&
+              # Stop old containers (from any location)
+              sudo docker stop linkedin-job-tracker job-tracker-web 2>/dev/null || true &&
+              sudo docker rm linkedin-job-tracker job-tracker-web 2>/dev/null || true &&
+
+              # Start with new images
               sudo docker compose -f docker-compose.prod.yml up -d &&
 
               # Verify
